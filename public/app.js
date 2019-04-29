@@ -9,6 +9,20 @@ $.getJSON("/articles", function(data) {
             "<p data-id='" + data[i]._id + "'>" 
             + data[i].title + "<br />" + 
             "<a href='" + data[i].link + "' target='_blank'>" + data[i].link +"</a>" + 
-            "</p></div></div>");
+            "</p></div>" +
+            "<button class='addNote btn-primary' value='" + data[i]._id + "'>Add Note</button>" +
+            "</div>");
     }
+    // value='" + data[i]._id + "'
+});
+
+
+$(document).on("click", ".addNote", function(){
+    $.ajax({
+        method: "GET",
+        url: "/articles/" + $(this).val()
+    })
+    .then(function(response){
+        console.log(response);
+    });
 });
